@@ -29,31 +29,31 @@ namespace Search
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(@"What are you searching for?");
-            String Q = Console.ReadLine();
+            Console.WriteLine(@"What is the name of directory you are searching for?");
+            String S = Console.ReadLine();
             Stack<DirectoryInfo> layers = new Stack<DirectoryInfo>();
-            layers.Push(new DirectoryInfo(@"C:\Users\Амина\Desktop\уроки"));
-            string path = @"C:\Users\Амина\Desktop";
-            string lastFolderName = Path.GetFileName(Path.GetDirectoryName(path));
-            Console.WriteLine(lastFolderName);
+            layers.Push(new DirectoryInfo(S));
+            //string path = @"C:\Users\Амина\Desktop";
+            //string lastFolderName = Path.GetFileName(Path.GetDirectoryName(path));
+            //Console.WriteLine(lastFolderName);
             while (layers.Count > 0)
             {
-                DirectoryInfo CurState = layers.Peek();
+                DirectoryInfo CurrentState = layers.Peek();
                 layers.Pop();
-                for (int i = 0; i < CurState.GetFileSystemInfos().Length; i++)
+                for (int i = 0; i < CurrentState.GetFileSystemInfos().Length; i++)
                 {
-                    if (CurState.GetFileSystemInfos()[i] is DirectoryInfo)
+                    if (CurrentState.GetFileSystemInfos()[i] is DirectoryInfo)
                     {
-                        layers.Push(new DirectoryInfo(CurState.GetFileSystemInfos()[i].FullName));
+                        layers.Push(new DirectoryInfo(CurrentState.GetFileSystemInfos()[i].FullName));
                     }
                 
                     else
                     {
-                        if (CurState.GetFileSystemInfos()[i].Extension == ".txt")
+                        if (CurrentState.GetFileSystemInfos()[i].Extension == ".txt")
                         {
-                            if (DoesItContain(CurState.GetFileSystemInfos()[i].FullName, Q))
+                            if (DoesItContain(CurrentState.GetFileSystemInfos()[i].FullName,"abcd"))
                             {
-                                Console.WriteLine(CurState.GetFileSystemInfos()[i].FullName);
+                                Console.WriteLine(CurrentState.GetFileSystemInfos()[i].FullName);
                             }
                         }
                     }
